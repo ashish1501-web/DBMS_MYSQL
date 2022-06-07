@@ -1,0 +1,43 @@
+create database Insurance_database;
+use Insurance_database;
+show databases;
+show tables;
+drop table participated;
+create table person
+(
+	Driver_id varchar(10) primary key,
+    name varchar(20),
+    Address varchar(100)
+);
+create table car
+(
+	reg_no varchar(10),
+    model varchar(20),
+    year int,
+    primary key(reg_no)
+);
+create table accident
+(
+	report_no int primary key,
+    date date,
+    location varchar(100)
+);
+create table owns
+(
+	Driver_id varchar(10) primary key,
+    reg_no varchar(10),
+    foreign key(Driver_id) references person(Driver_id),
+    foreign key(reg_no) references car(reg_no)
+    
+);
+create table participated
+(
+	Driver_id varchar(10) primary key,
+    reg_no varchar(10),
+    report_no int,
+     damage_no int,
+      foreign key(Driver_id) references person(Driver_id),
+      foreign key(reg_no) references car(reg_no),
+      foreign key(report_no) references accident(report_no)
+   
+);
