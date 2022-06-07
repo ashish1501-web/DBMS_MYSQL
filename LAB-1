@@ -32,12 +32,48 @@ create table owns
 );
 create table participated
 (
-	Driver_id varchar(10) primary key,
+	Driver_id varchar(10) ,
     reg_no varchar(10),
     report_no int,
      damage_no int,
+     primary key(Driver_id,reg_no),
       foreign key(Driver_id) references person(Driver_id),
       foreign key(reg_no) references car(reg_no),
       foreign key(report_no) references accident(report_no)
    
 );
+
+show tables;
+desc car;
+
+insert into person values('DL01','a','bangalore');
+insert into person values('DL02','b','belgaum');
+insert into person values('DL03','c','belgaum');
+insert into person values('DL04','d','basavanagudi');
+insert into person values('DL05','e','kengeri');
+
+insert into car values('KA101','swift',1987);
+insert into car values('KA102','benz',2000);
+insert into car values('KA103','i10',2002);
+insert into car values('KA104','i20',2003);
+insert into car values('KA105','ninja',2005);
+
+insert into accident values('1','2019-03-12','bangalore');
+insert into accident values('2','2012-03-12','belgaum');
+insert into accident values('3','2020-04-12','belgaum');
+insert into accident values('4','2023-05-12','basavanagudi');
+insert into accident values('5','2010-08-12','kengeri');
+
+insert into owns values('DL01','KA101');
+insert into owns values('DL02','KA101');
+insert into owns values('DL04','KA104');
+insert into owns values('DL03','KA102');
+insert into owns values('DL05','KA103');
+
+insert into participated values('DL01','KA101','1','20000');
+insert into participated values('DL02','KA102','1','30000');
+insert into participated values('DL03','KA101','2','7000');
+insert into participated values('DL02','KA103','4','9000');
+insert into participated values('DL03','KA104','3','12034');
+
+select * from participated;
