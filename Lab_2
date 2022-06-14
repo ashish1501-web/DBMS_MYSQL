@@ -1,0 +1,14 @@
+Create database Bank;
+use bank;
+
+show tables;
+drop table Branch; 
+create table Branch(Branch_name varchar(25) primary key, Branch_city varchar(30),assets real);
+
+insert into Branch values('Main','delhi',3092819.309),('sbi','udupi',3092819.309),('corp_sub','bangalore',3092819.309),('corp_main','banglore',3092819.309),('sub','delhi',4092819.309);
+
+create table Accounts(acc_no int primary key, Branch_name varchar(25) ,balance real, foreign key(Branch_name) References Branch(Branch_name));
+
+insert into Accounts values
+(12345,'Main'
+select * from Branch;
