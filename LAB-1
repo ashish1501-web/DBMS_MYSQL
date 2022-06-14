@@ -71,9 +71,27 @@ insert into owns values('DL03','KA102');
 insert into owns values('DL05','KA103');
 
 insert into participated values('DL01','KA101','1','20000');
-insert into participated values('DL02','KA102','1','30000');
+insert into participated values('DL02','KA102','19','30000');
 insert into participated values('DL03','KA101','2','7000');
-insert into participated values('DL02','KA103','4','9000');
+insert into participated values('DL02','KA104','400','9000');
 insert into participated values('DL03','KA104','3','12034');
 
-select * from participated;
+select * from car;
+update participated set damage_no=100000 where reg_no='KA101' and report_no BETWEEN 1 and 3;
+
+create table new_accident
+(
+	report_no int primary key,
+    date date,
+    location varchar(100)
+);
+
+show tables;
+
+select count(year) from car where year=2003;
+
+update car set model='i10' where reg_no='KA101';
+
+select model,count(*) as no_accidents 
+from car
+group by model;
