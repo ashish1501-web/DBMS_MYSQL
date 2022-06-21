@@ -2,13 +2,26 @@ Create database Bank;
 use bank;
 
 show tables;
-drop table Branch; 
+drop table depositers; 
 create table Branch(Branch_name varchar(25) primary key, Branch_city varchar(30),assets real);
 
-insert into Branch values('Main','delhi',3092819.309),('sbi','udupi',3092819.309),('corp_sub','bangalore',3092819.309),('corp_main','banglore',3092819.309),('sub','delhi',4092819.309);
+insert into Branch values('CORP','delhi',3092819.309),('SBI','udupi',3092819.309),('HDFC','bangalore',3092819.309),('karnataka','banglore',3092819.309),('Union','delhi',4092819.309);
 
 create table Accounts(acc_no int primary key, Branch_name varchar(25) ,balance real, foreign key(Branch_name) References Branch(Branch_name));
 
 insert into Accounts values
-(12345,'Main'
-select * from Branch;
+(12345,'CORP',2000000),(12346,'CORP',2000000),(21345,'SBI',3000000),(12945,'CORP',2000000),(43345,'HDFC',2000000);
+select * from borrower;
+
+create table depositers(cust_name varchar(20) ,acc_no int ,foreign key(acc_no) references Accounts(acc_no),primary key(cust_name,acc_no));
+insert into depositers values('Ashish',12345),('Dinesh',12346),('Andrew',21345),('Nikil',12945),('ravi',43345);
+
+create table customer(cust_name varchar(20) primary key,cust_street varchar(50),cust_city varchar(20));
+insert into customer values('Dinesh','BL road','Bangalore'),('Andrew','MG road','Mysore'),('Mohan','Banashankari','Chirapunji'),('nikil','vv puram','Mangalore'),('debroy','Food_street','Mysore');
+
+create table loan(loan_no int primary key,Branch_name varchar(25),amount real,foreign key(Branch_name) references Branch(Branch_name));
+insert into loan values(1,'Union',20000),(5,'SBI',50000),(2,'CORP',120000),(9,'HDFC',23000),(14,'CORP',34000);
+
+create table borrower( cust_name varchar(20),loan_no int,primary key(cust_name,loan_no),foreign key(cust_name) references depositers(cust_name));
+insert into borrower values('Dinesh',1),('Andrew',5),('Nikil',9),('Ashish',14);
+
