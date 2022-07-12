@@ -89,7 +89,7 @@ where f.fid IN (select c.fid
 				from class c
                 group by c.fid
                 having count(*)<5);
--- -------5th question-------------
+-- -------6th question-------------
 
 select s.sname
 from student s
