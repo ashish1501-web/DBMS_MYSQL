@@ -1,0 +1,85 @@
+create database Airline_flight;
+use Airline_flight;
+drop table flights;
+create table flights(
+	flno int,
+    from_this varchar(10),
+    to_this varchar(20),
+    distance int,
+    departs timestamp,
+    arrives timestamp,
+    price int
+);
+create table aircraft(
+	aid int primary key,
+    aname varchar(50),
+    cruisinrange int
+    
+    
+);
+
+create table employees(
+	eid int primary key,
+    ename varchar(20),
+    salary int
+);
+drop table employees;
+create table certified(
+	eid int,
+    aid int,
+   
+    foreign key(eid) references employees(eid),
+    foreign key(aid) references aircraft(aid),
+     primary key(eid,aid)
+);
+
+insert into flights values(101,'Bangalore','Delhi',2500,'2005-05-13 07:15:31','2005-05-13 17:15:31',5000);
+select * from flights;
+insert into flights values (102,'Bangalore','lucknow',3000,'2005-05-13 07:15:31','2005-05-13 11:15:31',6000),
+                            (103,'Bangalore','Delhi',500,'2005-05-13 12:15:31','2005-05-13 17:15:31',3000),
+                            (107,'Bangalore','frankfurt',8000,'2005-05-13 07:15:31','2005-05-13 17:15:31',60000),
+                            (104,'Bangalore','frankfurt',8500,'2005-05-13 07:15:31','2005-05-13 17:15:31',75000),
+                            (105,'kolkta','Delhi',3400,'2005-05-13 07:15:31','2005-05-13 17:15:31',7000);
+							
+
+insert into employees values(701,'A',50000),
+							(702,'b',250000),
+                            (703,'c',150000),
+                            (704,'d',950000),
+                            (705,'e',40000),
+                            (706,'f',60000),
+                            (707,'g',90000);
+                            
+select * from employees;
+
+insert into aircraft values(101,'747',3000),(102,'boeing',900),(103,'647',800),(104,'dreamlinear',10000),(105,'boing',3500),(106,'707',1500),(107,'dream',120000);
+select * from aircraft;
+
+insert into certified values(701,101),(701,102),(701,106),(701,105),(702,104),(703,104),(704,104),(702,107),(703,107),(704,107),(702,101),(703,105),(704,105),(705,103);
+select * from certified;
+
+-- -----------------------------------------------------------------------------------------------------------------------------------------------
+
+-- 1st qn-============================================================================
+
+select distinct a.aname
+from aircraft a,certified c,employees e
+where a.aid=c.aid
+AND  c.eid=e.eid
+AND  e.salary>80000;
+
+-- 2nd qn=====================================================================================
+select c.eid,max(a.cruisinrange)
+from aircraft a,certified c
+where a.aid=c.aid
+group by c.eid
+having count(*)>3;
+
+-- 3rd qn===========================================================================================
+select e.ename
+from employees e
+where e.salary<(select min(price)
+				from flights 
+                where from_this='Bangalore' AND to_this='Frankfurt');
+	
+-- 4th qn=======================================================
